@@ -1,0 +1,39 @@
+// Test data for: TCD_FT_25_NEG - Invalid JSON Format
+[
+  {
+    "testCaseId": "TCD_FT_25_NEG",
+    "testCaseName": "Invalid JSON Format",
+    "endpoint": "/Account/v1/User",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "invalidRequestBodies": [
+      {
+        "description": "Missing closing brace",
+        "body": "{\"userName\": \"invalidUser\", \"password\": \"Password@123\""
+      },
+      {
+        "description": "Unquoted property name",
+        "body": "{userName: \"invalidUser\", password: \"Password@123\"}"
+      },
+      {
+        "description": "Trailing comma",
+        "body": "{\"userName\": \"invalidUser\", \"password\": \"Password@123\",}"
+      },
+      {
+        "description": "Completely malformed JSON",
+        "body": "userName=invalidUser&password=Password@123"
+      }
+    ],
+    "expectedResponse": {
+      "statusCode": 400,
+      "bodyContains": [
+        "Invalid request body",
+        "Bad Request"
+      ]
+    },
+    "category": "Functional Testing",
+    "subCategory": "Negative test case"
+  }
+]
